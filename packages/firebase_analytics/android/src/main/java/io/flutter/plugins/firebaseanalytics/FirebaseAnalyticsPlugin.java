@@ -21,6 +21,9 @@ public class FirebaseAnalyticsPlugin implements MethodCallHandler {
   private final FirebaseAnalytics firebaseAnalytics;
 
   public static void registerWith(PluginRegistry.Registrar registrar) {
+     if (registrar.activity() == null) {
+        return;
+    }
     final MethodChannel channel =
         new MethodChannel(registrar.messenger(), "plugins.flutter.io/firebase_analytics");
     channel.setMethodCallHandler(new FirebaseAnalyticsPlugin(registrar));
