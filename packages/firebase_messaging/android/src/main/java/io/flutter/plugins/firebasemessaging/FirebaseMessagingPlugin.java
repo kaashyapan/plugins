@@ -39,6 +39,15 @@ public class FirebaseMessagingPlugin extends BroadcastReceiver
   private static final String TAG = "FirebaseMessagingPlugin";
 
   public static void registerWith(Registrar registrar) {
+   if (registrar.activity() == null) {
+
+        // If a background flutter view tries to register the plugin, there will be no activity from the registrar,
+
+        // we stop the registering process immediately because the ImagePicker requires an activity.
+
+        return;
+
+    }
     final MethodChannel channel =
         new MethodChannel(registrar.messenger(), "plugins.flutter.io/firebase_messaging");
     final FirebaseMessagingPlugin plugin = new FirebaseMessagingPlugin(registrar, channel);
