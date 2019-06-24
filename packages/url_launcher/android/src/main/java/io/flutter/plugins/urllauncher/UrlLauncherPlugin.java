@@ -27,6 +27,9 @@ public class UrlLauncherPlugin implements MethodCallHandler {
   private final Registrar mRegistrar;
 
   public static void registerWith(Registrar registrar) {
+     if (registrar.activity() == null) {
+        return;
+    }
     MethodChannel channel =
         new MethodChannel(registrar.messenger(), "plugins.flutter.io/url_launcher");
     UrlLauncherPlugin instance = new UrlLauncherPlugin(registrar);
