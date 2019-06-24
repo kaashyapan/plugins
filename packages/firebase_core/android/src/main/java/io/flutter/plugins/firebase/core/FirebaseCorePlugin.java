@@ -23,6 +23,15 @@ public class FirebaseCorePlugin implements MethodCallHandler {
   private final Context context;
 
   public static void registerWith(PluginRegistry.Registrar registrar) {
+     if (registrar.activity() == null) {
+
+        // If a background flutter view tries to register the plugin, there will be no activity from the registrar,
+
+        // we stop the registering process immediately because the ImagePicker requires an activity.
+
+        return;
+
+    }
     final MethodChannel channel =
         new MethodChannel(registrar.messenger(), "plugins.flutter.io/firebase_core");
     channel.setMethodCallHandler(new FirebaseCorePlugin(registrar.context()));
