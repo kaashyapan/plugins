@@ -28,6 +28,9 @@ public class DeviceInfoPlugin implements MethodCallHandler {
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
+     if (registrar.activity() == null) {
+        return;
+    }
     final MethodChannel channel =
         new MethodChannel(registrar.messenger(), "plugins.flutter.io/device_info");
     channel.setMethodCallHandler(new DeviceInfoPlugin(registrar.context()));
