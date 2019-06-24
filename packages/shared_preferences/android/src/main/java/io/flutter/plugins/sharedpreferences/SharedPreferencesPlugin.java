@@ -38,6 +38,9 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
   private final android.content.SharedPreferences preferences;
 
   public static void registerWith(PluginRegistry.Registrar registrar) {
+     if (registrar.activity() == null) {
+        return;
+    }
     MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL_NAME);
     SharedPreferencesPlugin instance = new SharedPreferencesPlugin(registrar.context());
     channel.setMethodCallHandler(instance);
